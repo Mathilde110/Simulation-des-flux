@@ -2,32 +2,37 @@ name: Update CSV automatically
 
 on:
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/1 * * * *"   # toutes les 1 minute
   workflow_dispatch:
 
 permissions:
-  contents: write   # ← IMPORTANT
+  contents: write   # permet à GitHub Actions de modifier le dépôt
 
 jobs:
   update:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Récupérer le dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Installer Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # 3️⃣ Installer pandas
       - name: Install pandas
         run: pip install pandas
 
+      # 4️⃣ Exécuter le script qui met à jour le CSV
       - name: Run update script
         run: python update_csv.py
 
-      -  - name: Commit and push
+      # 5️⃣ Configurer Git et pousser les changements
+      - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
@@ -35,3 +40,6 @@ jobs:
           git add compteurs.csv
           git commit -m "Update CSV" || echo "No changes"
           git push
+
+
+
