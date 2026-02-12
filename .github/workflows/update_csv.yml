@@ -13,33 +13,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Récupérer le dépôt
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true  # ← utilise le token GitHub automatiquement
 
-      # 2️⃣ Installer Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # 3️⃣ Installer pandas
       - name: Install pandas
         run: pip install pandas
 
-      # 4️⃣ Exécuter le script qui met à jour le CSV
       - name: Run update script
         run: python update_csv.py
 
-      # 5️⃣ Configurer Git et pousser les changements
-      - name: Commit and push
+      - name: Commit and push changes
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git pull --rebase
           git add compteurs.csv
           git commit -m "Update CSV" || echo "No changes"
           git push
-
-
-
