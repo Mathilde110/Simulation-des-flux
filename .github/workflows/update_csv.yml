@@ -27,10 +27,11 @@ jobs:
       - name: Run update script
         run: python update_csv.py
 
-      - name: Commit and push
+      -  - name: Commit and push
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
+          git pull --rebase
           git add compteurs.csv
           git commit -m "Update CSV" || echo "No changes"
           git push
