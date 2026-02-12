@@ -1,27 +1,13 @@
-name: Update CSV automatically
 
-on:
-  schedule:
-    - cron: "*/1 * * * *"   # toutes les 1 minute
-  workflow_dispatch:
-
-permissions:
-  contents: write   # permet à GitHub Actions de modifier le dépôt
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true  # ← utilise le token GitHub automatiquement
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install pandas
         run: pip install pandas
