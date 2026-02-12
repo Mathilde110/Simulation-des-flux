@@ -1,0 +1,33 @@
+name: Update CSV Automatically
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # toutes les 30 minutes
+  workflow_dispatch:        # permet de lancer manuellement
+
+jobs:
+  update_csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Run CSV update script
+        run: python update_csv.py   # <-- ici tu mets le nom de TON script Python
+
+      - name: Commit and push CSV
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add compteurs.csv
+          git commit -m "Mise à jour automatique"
+          git push
