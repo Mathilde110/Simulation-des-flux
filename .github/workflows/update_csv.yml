@@ -15,7 +15,7 @@
       - name: Run update script
         run: python update_csv.py
 
-      - name: Commit and push changes
+       - name: Commit and push changes
         run: |
           git add compteurs.csv
           git commit -m "Update CSV" || echo "No changes"
