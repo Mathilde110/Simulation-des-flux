@@ -83,14 +83,14 @@ try:
         hovermode='x unified',
         legend=dict(
             orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
+            yanchor="top",
+            y=-0.15,
+            xanchor="center",
+            x=0.5,
             title=""
         ),
         height=500,
-        margin=dict(l=0, r=0, t=30, b=0)
+        margin=dict(l=20, r=20, t=40, b=80)
     )
     
     fig.update_traces(line=dict(width=3))
@@ -100,4 +100,3 @@ try:
 except Exception as e:
     st.warning("⏳ En attente des données…")
     st.error(str(e))
-
