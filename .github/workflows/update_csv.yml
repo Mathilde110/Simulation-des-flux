@@ -1,24 +1,28 @@
 
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: true
+    - name: Checkout repository
+  uses: actions/checkout@v4
+  with:
+    persist-credentials: true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+- name: Set up Python
+  uses: actions/setup-python@v5
+  with:
+    python-version: '3.11'
 
-      - name: Install pandas
-        run: pip install pandas
+- name: Install pandas
+  run: pip install pandas
 
-      - name: Run update script
-        run: python update_csv.py
+- name: Run update script
+  run: python update_csv.py
 
-      - name: Commit and push changes
+- name: Configure Git
   run: |
-    git config user.name "github-actions"
-    git config user.email "actions@github.com"
+    git config --global user.name "Mathilde"
+    git config --global user.email "mathildefaggionbarbier@gmail.com"
+
+- name: Commit and push changes
+  run: |
     git add compteurs.csv
-    git commit -m "Update CSV" || echo "No changes"
+    git commit -m "Update CSV" || echo "No changes to commit"
+    git pull --rebase
     git push
