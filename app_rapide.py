@@ -12,16 +12,37 @@ st.markdown("""
     .main {
         background-color: #e8eef3;
     }
+    div[data-testid="stMetricValue"] > div {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
     [data-testid="stMetricLabel"] {
         color: #000000 !important;
         font-weight: 600 !important;
+        background-color: white;
+        padding: 15px 20px 5px 20px;
+        border-radius: 10px 10px 0 0;
     }
     [data-testid="stMetricValue"] {
         color: #000000 !important;
         font-size: 32px !important;
+        background-color: white;
+        padding: 0px 20px;
     }
     [data-testid="stMetricDelta"] {
         color: #000000 !important;
+        background-color: white;
+        padding: 5px 20px 15px 20px;
+        border-radius: 0 0 10px 10px;
+    }
+    div[data-testid="metric-container"] {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: 1px solid #d0d0d0;
     }
     </style>
 """, unsafe_allow_html=True)
