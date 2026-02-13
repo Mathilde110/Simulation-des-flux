@@ -100,6 +100,5 @@ try:
 
 except Exception as e:
     st.warning("⏳ En attente des données…")
-    st.error(str(e)) des données…")
     st.error(str(e))
 
