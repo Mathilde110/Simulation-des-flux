@@ -1,12 +1,13 @@
 
 
-   name: Update CSV
+name: Update CSV
 on:
   push:
     branches:
       - main
   schedule:
     - cron: '0 6 * * *'  # exécution quotidienne à 6h UTC
+
 jobs:
   update_csv:
     runs-on: ubuntu-latest
@@ -17,40 +18,39 @@ jobs:
         with:
           persist-credentials: true
       
-      # 2️⃣ Setup Python
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      
-      # 3️⃣ Installer les dépendances
-      - name: Install pandas
-        run: pip install pandas
-      
-      # 4️⃣ Exécuter le script CSV
-      - name: Run update script
-        run: python update_csv.py || true  # ignore les erreurs non critiques
-      
-      # 5️⃣ Configurer Git dans le runner
+      # 2️⃣ Configurer Git EN PREMIER
       - name: Configure Git
         run: |
           git config --global user.name "Mathilde"
           git config --global user.email "mathildefaggionbarbier@gmail.com"
           git config pull.rebase true
       
-      # 6️⃣ Pull des derniers changements avant commit
+      # 3️⃣ Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      # 4️⃣ Installer les dépendances
+      - name: Install pandas
+        run: pip install pandas
+      
+      # 5️⃣ Pull des derniers changements
       - name: Pull latest changes
         run: git pull origin main || true
       
+      # 6️⃣ Exécuter le script CSV
+      - name: Run update script
+        run: python update_csv.py
+      
       # 7️⃣ Commit & push CSV
       - name: Commit and push CSV
-        if: ${{ always() }}
         run: |
           git add compteurs.csv
           if git diff --staged --quiet; then
             echo "Pas de changements à commiter"
           else
             git commit -m "Update CSV - $(date +'%Y-%m-%d %H:%M:%S')"
-            git pull --rebase origin main
+            git pull --rebase origin main || true
             git push origin main
           fi
