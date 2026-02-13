@@ -12,23 +12,13 @@ st.markdown("""
     .main {
         background-color: #e8eef3;
     }
-    div[data-testid="metric-container"] {
+    .metric-card {
         background-color: white;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         border: 1px solid #d0d0d0;
-    }
-    [data-testid="stMetricLabel"] {
-        color: #000000 !important;
-        font-weight: 600 !important;
-    }
-    [data-testid="stMetricValue"] {
-        color: #000000 !important;
-        font-size: 32px !important;
-    }
-    [data-testid="stMetricDelta"] {
-        color: #00AA00 !important;
+        text-align: center;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -57,25 +47,28 @@ try:
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.metric(
-            "👤 Humains", 
-            int(last["humains"]),
-            delta=int(last["humains"] - previous["humains"])
-        )
+        with st.container():
+            st.metric(
+                "👤 Humains", 
+                int(last["humains"]),
+                delta=int(last["humains"] - previous["humains"])
+            )
     
     with col2:
-        st.metric(
-            "🚲 Vélos", 
-            int(last["velos"]),
-            delta=int(last["velos"] - previous["velos"])
-        )
+        with st.container():
+            st.metric(
+                "🚲 Vélos", 
+                int(last["velos"]),
+                delta=int(last["velos"] - previous["velos"])
+            )
     
     with col3:
-        st.metric(
-            "📊 Total", 
-            int(last["humains"] + last["velos"]),
-            delta=int((last["humains"] + last["velos"]) - (previous["humains"] + previous["velos"]))
-        )
+        with st.container():
+            st.metric(
+                "📊 Total", 
+                int(last["humains"] + last["velos"]),
+                delta=int((last["humains"] + last["velos"]) - (previous["humains"] + previous["velos"]))
+            )
     
     st.markdown("---")
     
@@ -113,5 +106,6 @@ try:
 except Exception as e:
     st.warning("En attente des donnees...")
     st.error(str(e))
+
 
 
