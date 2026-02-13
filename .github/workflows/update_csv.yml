@@ -6,8 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 6 * * *'  # exécution quotidienne à 6h UTC
-
+    - cron: '*/5 * * * *'
 jobs:
   update_csv:
     runs-on: ubuntu-latest
