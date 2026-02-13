@@ -10,13 +10,25 @@ st.set_page_config(page_title="Comptage MobilitÃ©", layout="wide", page_icon="ðŸ
 st.markdown("""
     <style>
     .main {
-        background-color: #f5f7fa;
+        background-color: #e8eef3;
     }
     .stMetric {
         background-color: white;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border: 1px solid #d0d0d0;
+    }
+    .stMetric label {
+        color: #333333 !important;
+        font-weight: 600;
+    }
+    .stMetric [data-testid="stMetricValue"] {
+        color: #1f1f1f !important;
+        font-size: 32px !important;
+    }
+    .stMetric [data-testid="stMetricDelta"] {
+        font-size: 16px !important;
     }
     </style>
 """, unsafe_allow_html=True)
