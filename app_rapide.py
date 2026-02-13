@@ -6,17 +6,22 @@ from streamlit_autorefresh import st_autorefresh
 # Config page
 st.set_page_config(page_title="Comptage Mobilité", layout="wide", page_icon="🚀")
 
-# Style CSS personnalisé - SIMPLIFIÉ
+# Style CSS personnalisé
 st.markdown("""
     <style>
+    .main {
+        background-color: #e8eef3;
+    }
     [data-testid="stMetricLabel"] {
-        color: #262730 !important;
+        color: #000000 !important;
+        font-weight: 600 !important;
     }
     [data-testid="stMetricValue"] {
-        color: #262730 !important;
+        color: #000000 !important;
+        font-size: 32px !important;
     }
     [data-testid="stMetricDelta"] {
-        color: #262730 !important;
+        color: #000000 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -99,6 +104,7 @@ try:
     st.plotly_chart(fig, use_container_width=True)
 
 except Exception as e:
-    st.warning("⏳ En attente des données…")
+    st.warning("En attente des donnees...")
     st.error(str(e))
+
 
