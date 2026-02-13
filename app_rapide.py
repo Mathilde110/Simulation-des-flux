@@ -127,5 +127,4 @@ try:
 except Exception as e:
     st.warning("En attente des donnees...")
     st.error(str(e))
-
-
+Maintenant commitez :
