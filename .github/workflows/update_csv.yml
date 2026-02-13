@@ -1,27 +1,42 @@
-- name: Checkout repository
-  uses: actions/checkout@v4
-  with:
-    persist-credentials: true
+name: Update CSV
 
-- name: Set up Python
-  uses: actions/setup-python@v5
-  with:
-    python-version: '3.11'
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 6 * * *'  # chaque jour à 6h UTC
 
-- name: Install pandas
-  run: pip install pandas
+jobs:
+  update_csv:
+    runs-on: ubuntu-latest
 
-- name: Run update script
-  run: python update_csv.py
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-- name: Configure Git
-  run: |
-    git config user.name "Mathilde"
-    git config user.email "mathildefaggionbarbier@gmail.com"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-- name: Commit and push changes
-  run: |
-    git add compteurs.csv
-    git commit -m "Update CSV" || echo "No changes to commit"
-    git pull --rebase origin main
-    git push origin main
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Run update script
+        run: python update_csv.py || true   # Ignore les erreurs du script
+
+      - name: Configure Git
+        run: |
+          git config user.name "Mathilde"
+          git config user.email "mathildefaggionbarbier@gmail.com"
+
+      - name: Commit and push CSV
+        if: ${{ always() }}  # Toujours exécuter même si le script échoue
+        run: |
+          git add compteurs.csv
+          git commit -m "Update CSV" || echo "No changes to commit"
+          git pull --rebase origin main
+          git push origin main
