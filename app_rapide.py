@@ -90,7 +90,8 @@ try:
             title=""
         ),
         height=500,
-        margin=dict(l=20, r=20, t=40, b=80)
+        margin=dict(l=20, r=20, t=40, b=80),
+        yaxis=dict(rangemode='tozero')
     )
     
     fig.update_traces(line=dict(width=3))
