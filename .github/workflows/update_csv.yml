@@ -1,5 +1,27 @@
 
 
+    Parfait 😄 ! Voici la version finale corrigée de ton workflow GitHub Actions, avec la configuration Git correcte et les pulls séparés pour éviter toutes les erreurs “Author identity unknown” et “fetch first” :
+
+name: Update CSV
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 6 * * *'  # exécution quotidienne à 6h UTC
+
+jobs:
+  update_csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout du dépôt
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
       # 2️⃣ Setup Python
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -12,26 +34,23 @@
 
       # 4️⃣ Exécuter le script CSV
       - name: Run update script
-        run: python update_csv.py || true   # ignore les erreurs pour ne pas stopper le workflow
+        run: python update_csv.py || true  # ignore les erreurs non critiques
 
       # 5️⃣ Configurer Git dans le runner
       - name: Configure Git
         run: |
-          git config user.name "Mathilde"
-          git config user.email "mathildefaggionbarbier@gmail.com"
+          git config --global user.name "Mathilde"
+          git config --global user.email "mathildefaggionbarbier@gmail.com"
+          git config pull.rebase true
 
-      # 6️⃣ Debug Git (facultatif mais utile)
-      - name: Debug Git
-        if: ${{ runner.debug }}
-        run: |
-          git config --list
-          git status
+      # 6️⃣ Pull des derniers changements avant commit
+      - name: Pull latest changes
+        run: git pull origin main || true
 
       # 7️⃣ Commit & push CSV
       - name: Commit and push CSV
-        if: ${{ always() }}  # s’exécute même si une étape précédente a échoué
+        if: ${{ always() }}
         run: |
           git add compteurs.csv
           git commit -m "Update CSV" || echo "No changes to commit"
-          git pull --rebase origin main
           git push origin main
