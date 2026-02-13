@@ -1,5 +1,5 @@
 
-    - name: Checkout repository
+   - name: Checkout repository
   uses: actions/checkout@v4
   with:
     persist-credentials: true
@@ -15,14 +15,11 @@
 - name: Run update script
   run: python update_csv.py
 
-- name: Configure Git
-  run: |
-    git config --global user.name "Mathilde"
-    git config --global user.email "mathildefaggionbarbier@gmail.com"
-
 - name: Commit and push changes
   run: |
+    git config user.name "Mathilde"
+    git config user.email "mathildefaggionbarbier@gmail.com"
     git add compteurs.csv
     git commit -m "Update CSV" || echo "No changes to commit"
-    git pull --rebase
-    git push
+    git pull --rebase origin main
+    git push origin main
