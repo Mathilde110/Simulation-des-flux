@@ -32,7 +32,7 @@ st.markdown("""
         padding: 0px 20px;
     }
     [data-testid="stMetricDelta"] {
-        color: #000000 !important;
+        color: #00AA00 !important;
         background-color: white;
         padding: 5px 20px 15px 20px;
         border-radius: 0 0 10px 10px;
@@ -127,4 +127,4 @@ try:
 except Exception as e:
     st.warning("En attente des donnees...")
     st.error(str(e))
-Maintenant commitez :
+
