@@ -6,29 +6,17 @@ from streamlit_autorefresh import st_autorefresh
 # Config page
 st.set_page_config(page_title="Comptage Mobilité", layout="wide", page_icon="🚀")
 
-# Style CSS personnalisé
+# Style CSS personnalisé - SIMPLIFIÉ
 st.markdown("""
     <style>
-    .main {
-        background-color: #e8eef3;
+    [data-testid="stMetricLabel"] {
+        color: #262730 !important;
     }
-    .stMetric {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border: 1px solid #d0d0d0;
+    [data-testid="stMetricValue"] {
+        color: #262730 !important;
     }
-    .stMetric label {
-        color: #333333 !important;
-        font-weight: 600;
-    }
-    .stMetric [data-testid="stMetricValue"] {
-        color: #1f1f1f !important;
-        font-size: 32px !important;
-    }
-    .stMetric [data-testid="stMetricDelta"] {
-        font-size: 16px !important;
+    [data-testid="stMetricDelta"] {
+        color: #262730 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -112,4 +100,6 @@ try:
 
 except Exception as e:
     st.warning("⏳ En attente des données…")
+    st.error(str(e)) des données…")
     st.error(str(e))
+
