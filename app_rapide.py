@@ -1,4 +1,4 @@
-mport streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.express as px
 from streamlit_autorefresh import st_autorefresh
@@ -100,3 +100,4 @@ try:
 except Exception as e:
     st.warning("⏳ En attente des données…")
     st.error(str(e))
+
